@@ -677,4 +677,304 @@ The optimized Random Forest model achieved the best overall balance between pred
 
 ---
 
+# 🏆 Final Production Model
+
+After evaluating multiple regression algorithms and performing hyperparameter optimization, the **Random Forest Regressor** was selected as the final production model.
+
+The selection was not based solely on achieving the highest R² score. Instead, the model was chosen after evaluating multiple engineering factors, including predictive accuracy, robustness, interpretability, computational cost, and deployment suitability.
+
+---
+
+## Final Metrics
+
+| Metric | Value |
+|---------|------:|
+| Model | Random Forest Regressor |
+| MAE | **2.496413** |
+| RMSE | **3.893483** |
+| R² Score | **0.814663** |
+| Training Time | **270.36 sec** |
+
+---
+
+## Why Random Forest?
+
+The Random Forest model consistently outperformed the baseline models while maintaining strong generalization capabilities.
+
+### Key Advantages
+
+- Lowest MAE
+- Lowest RMSE
+- Highest R² Score
+- Excellent robustness against overfitting
+- Handles nonlinear feature interactions effectively
+- Requires minimal feature scaling
+- Stable performance across validation data
+- Suitable for production deployment
+
+---
+
+## Engineering Decision
+
+Although Linear Regression trained almost instantly and Decision Trees provided good interpretability, Random Forest offered the best balance between:
+
+- Prediction Accuracy
+- Generalization
+- Robustness
+- Maintainability
+- Deployment Readiness
+
+Therefore, it was selected as the production model used throughout the deployment pipeline.
+
+---
+
+# 🔍 Model Explainability
+
+One of the major goals of this project was to ensure that the final model was not treated as a "black box".
+
+To improve transparency and trust, SHAP (SHapley Additive Explanations) was used to explain how each feature contributed to the model's predictions.
+
+---
+
+## Explainability Workflow
+
+```text
+Trained Random Forest
+          │
+          ▼
+TreeExplainer
+          │
+          ▼
+SHAP Values
+          │
+          ▼
+Global Feature Importance
+          │
+          ▼
+Local Prediction Explanation
+```
+
+---
+
+## Explainability Objectives
+
+The SHAP analysis was performed to answer several key questions:
+
+- Which features influence predictions the most?
+- Which features increase predicted trip duration?
+- Which features decrease predicted trip duration?
+- How do features interact with each other?
+- Can individual predictions be explained?
+
+---
+
+## SHAP Visualizations
+
+The notebook includes the following explainability visualizations:
+
+- SHAP Summary Plot
+- SHAP Beeswarm Plot
+- SHAP Dependence Plot
+- Feature Importance Bar Plot
+
+---
+
+## Business Benefits
+
+Model explainability provides several advantages:
+
+- Increased stakeholder trust
+- Easier model validation
+- Better debugging
+- Regulatory transparency
+- Improved business understanding
+
+---
+
+# 🏭 Production Pipeline
+
+Instead of manually preprocessing incoming data before prediction, a reusable Scikit-learn Pipeline was created.
+
+This ensures that every prediction follows exactly the same preprocessing steps used during model training.
+
+---
+
+## Pipeline Components
+
+```text
+Raw Input
+      │
+      ▼
+Feature Validation
+      │
+      ▼
+Column Transformer
+      │
+      ▼
+Preprocessing
+      │
+      ▼
+Random Forest Model
+      │
+      ▼
+Prediction
+```
+
+---
+
+## Benefits of Using a Pipeline
+
+- Prevents training-serving skew
+- Eliminates preprocessing inconsistencies
+- Simplifies deployment
+- Reduces production bugs
+- Improves maintainability
+- Enables model serialization
+
+---
+
+## Serialized Artifacts
+
+The following production artifacts are generated after training:
+
+```text
+models/
+    production_pipeline.pkl
+
+artifacts/
+    feature_names.pkl
+    metadata.json
+    metrics.json
+```
+
+---
+
+## Pipeline Metrics
+
+| Metric | Value |
+|---------|------:|
+| MAE | **2.496413** |
+| RMSE | **3.893483** |
+| R² Score | **0.814663** |
+
+The serialized pipeline can be loaded directly without retraining the model.
+
+---
+
+# 🏗 System Architecture
+
+```mermaid
+flowchart TD
+
+A[Client]
+
+B[FastAPI]
+
+C[Pydantic Validation]
+
+D[Production Pipeline]
+
+E[Random Forest Model]
+
+F[Prediction]
+
+G[JSON Response]
+
+A --> B
+B --> C
+C --> D
+D --> E
+E --> F
+F --> G
+```
+
+---
+
+# 🔄 Machine Learning Workflow
+
+```mermaid
+flowchart TD
+
+A[Raw Dataset]
+
+B[Data Cleaning]
+
+C[EDA]
+
+D[Statistical Analysis]
+
+E[Feature Engineering]
+
+F[Model Training]
+
+G[Hyperparameter Optimization]
+
+H[SHAP Explainability]
+
+I[Production Pipeline]
+
+J[FastAPI]
+
+K[Docker]
+
+A --> B
+B --> C
+C --> D
+D --> E
+E --> F
+F --> G
+G --> H
+H --> I
+I --> J
+J --> K
+```
+
+---
+
+# ⚡ Prediction Workflow
+
+```mermaid
+sequenceDiagram
+
+participant Client
+
+participant API
+
+participant Pipeline
+
+participant Model
+
+Client->>API: POST /predict
+
+API->>Pipeline: Validate Input
+
+Pipeline->>Model: Predict
+
+Model-->>Pipeline: Prediction
+
+Pipeline-->>API: Result
+
+API-->>Client: JSON Response
+```
+
+---
+
+# 📌 Key Engineering Decisions
+
+Several engineering decisions were made throughout the project to improve maintainability and production readiness.
+
+| Decision | Reason |
+|----------|--------|
+| Removed leakage features | Prevent unrealistic model performance |
+| Used Train / Validation / Test split | Reliable model evaluation |
+| Built reusable Pipeline | Consistent preprocessing |
+| Serialized the Pipeline | Easy deployment |
+| Used SHAP | Explainability |
+| Developed REST API | Production inference |
+| Added Logging | Easier debugging |
+| Added Error Handling | Robust API behavior |
+| Dockerized the application | Environment consistency |
+
+---
+
 
