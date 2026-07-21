@@ -977,4 +977,589 @@ Several engineering decisions were made throughout the project to improve mainta
 
 ---
 
+# 🚀 REST API
 
+To make the trained model accessible outside the notebook environment, a production-ready REST API was developed using **FastAPI**.
+
+The API allows external applications to send trip information and receive predicted trip durations in real time.
+
+The deployment architecture follows modern Machine Learning Engineering practices and separates inference logic from model training.
+
+---
+
+## API Features
+
+- RESTful API Design
+- Automatic Request Validation
+- Structured JSON Responses
+- Production Logging
+- Exception Handling
+- Interactive Swagger Documentation
+- OpenAPI Specification
+- Production Pipeline Integration
+
+---
+
+# 📡 Available Endpoints
+
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| GET | `/` | Welcome endpoint |
+| GET | `/health` | API health status |
+| POST | `/predict` | Predict trip duration |
+
+---
+
+# 📝 Request Example
+
+```json
+{
+  "VendorID": 2,
+  "passenger_count": 1,
+  "trip_distance": 3.7,
+  "pickup_hour": 17,
+  "pickup_weekday": 4,
+  "pickup_month": 8,
+  "RateCodeID": 1
+}
+```
+
+---
+
+# ✅ Response Example
+
+```json
+{
+  "predicted_trip_duration": 14.87
+}
+```
+
+---
+
+# ❌ Validation Errors
+
+FastAPI and Pydantic automatically validate incoming requests.
+
+Examples include:
+
+- Missing required fields
+- Invalid data types
+- Negative trip distance
+- Invalid categorical values
+
+The API returns meaningful HTTP status codes and descriptive error messages to simplify debugging.
+
+---
+
+# ❤️ Health Check
+
+```http
+GET /health
+```
+
+Example Response
+
+```json
+{
+    "status": "healthy",
+    "model_loaded": true
+}
+```
+
+---
+
+# 📖 Interactive API Documentation
+
+FastAPI automatically generates interactive documentation.
+
+After running the application, open:
+
+```text
+http://127.0.0.1:8000/docs
+```
+
+Swagger UI provides:
+
+- Endpoint exploration
+- Live testing
+- Request schema
+- Response schema
+- Validation messages
+
+---
+
+# 🐳 Docker Deployment
+
+The application is fully containerized using Docker, ensuring consistent behavior across different environments.
+
+---
+
+## Build Image
+
+```bash
+docker build -t nyc-taxi-api .
+```
+
+---
+
+## Run Container
+
+```bash
+docker run -d \
+-p 8000:8000 \
+--name nyc-taxi-api \
+nyc-taxi-api
+```
+
+---
+
+## Verify Running Container
+
+```bash
+docker ps
+```
+
+---
+
+## Stop Container
+
+```bash
+docker stop nyc-taxi-api
+```
+
+---
+
+## Remove Container
+
+```bash
+docker rm nyc-taxi-api
+```
+
+---
+
+# 💾 Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/morsycoo/NYC-Yellow-Taxi-Trip-Duration-Prediction.git
+
+cd NYC-Yellow-Taxi-Trip-Duration-Prediction
+```
+
+---
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+# ▶ Running the Project
+
+Start the API locally:
+
+```bash
+uvicorn app.main:app --reload
+```
+
+The API will be available at:
+
+```text
+http://127.0.0.1:8000
+```
+
+---
+
+# 📂 Project Outputs
+
+Running the project generates several reusable artifacts.
+
+```text
+models/
+│
+└── production_pipeline.pkl
+
+artifacts/
+│
+├── feature_names.pkl
+├── metadata.json
+└── metrics.json
+
+logs/
+│
+└── api.log
+```
+
+---
+
+# 📸 Project Results
+
+The repository contains visualizations generated during the analysis and modeling stages.
+
+Recommended screenshots include:
+
+- Target Distribution
+- Correlation Heatmap
+- Feature Importance
+- SHAP Summary Plot
+- Residual Analysis
+- Actual vs Predicted
+- Swagger UI
+- Docker Container Running
+
+Repository structure:
+
+```text
+assets/
+└── images/
+    ├── target_distribution.png
+    ├── correlation_heatmap.png
+    ├── feature_importance.png
+    ├── shap_summary.png
+    ├── residual_plot.png
+    ├── actual_vs_predicted.png
+    ├── swagger_ui.png
+    └── docker_running.png
+```
+
+---
+
+# 🧪 Testing
+
+The API was tested using:
+
+- Swagger UI
+- FastAPI Test Client
+- Manual JSON Requests
+
+Validation confirmed:
+
+- Successful prediction requests
+- Proper validation errors
+- Correct HTTP status codes
+- Consistent JSON responses
+
+---
+
+# ⚙ Configuration
+
+The project uses a centralized configuration module.
+
+Configuration includes:
+
+- Model paths
+- Logging configuration
+- API metadata
+- Serialization paths
+
+Keeping configuration separate from application logic simplifies maintenance and deployment.
+
+---
+
+# 🔐 Error Handling
+
+Production-grade exception handling was implemented to improve reliability.
+
+Handled scenarios include:
+
+- Missing model files
+- Invalid requests
+- Pipeline loading failures
+- Unexpected runtime exceptions
+
+Errors are logged automatically while clients receive meaningful HTTP responses.
+
+---
+
+# 📋 Deployment Checklist
+
+| Task | Status |
+|------|:------:|
+| Production Pipeline | ✅ |
+| Model Serialization | ✅ |
+| FastAPI | ✅ |
+| Request Validation | ✅ |
+| Logging | ✅ |
+| Error Handling | ✅ |
+| Swagger | ✅ |
+| Docker | ✅ |
+| API Testing | ✅ |
+
+---
+
+# 📊 Project Summary
+
+This project demonstrates the complete lifecycle of building and deploying a Machine Learning solution.
+
+Starting from raw NYC taxi trip records, the project progresses through data preprocessing, exploratory analysis, statistical reasoning, feature engineering, regression modeling, explainability, production deployment, and API development.
+
+Unlike many notebook-only projects, this repository emphasizes reproducibility, maintainability, and production readiness.
+
+---
+
+# 🏆 Key Achievements
+
+✅ End-to-End Machine Learning Project
+
+✅ Business Problem Formulation
+
+✅ Data Cleaning & Validation
+
+✅ Exploratory Data Analysis (EDA)
+
+✅ Statistical Analysis
+
+✅ Feature Engineering
+
+✅ Multiple Regression Models
+
+✅ Hyperparameter Optimization
+
+✅ Model Benchmarking
+
+✅ Feature Importance Analysis
+
+✅ SHAP Explainability
+
+✅ Residual Analysis
+
+✅ Prediction Error Investigation
+
+✅ Production Pipeline
+
+✅ Model Serialization
+
+✅ FastAPI REST API
+
+✅ Request Validation using Pydantic
+
+✅ Structured Logging
+
+✅ Exception Handling
+
+✅ Docker Deployment
+
+✅ Interactive Swagger Documentation
+
+---
+
+# 📚 Lessons Learned
+
+Developing this project reinforced several important Machine Learning Engineering principles.
+
+### Data Quality Matters More Than Model Complexity
+
+A carefully cleaned and validated dataset often contributes more to model performance than simply switching to a more complex algorithm.
+
+---
+
+### Feature Engineering Is Critical
+
+Well-designed features significantly improved predictive performance and provided more meaningful inputs to the learning algorithms.
+
+---
+
+### Model Evaluation Should Be Comprehensive
+
+Selecting a model based on a single metric can be misleading.
+
+Multiple evaluation metrics, validation strategies, and error analyses provide a much more reliable assessment.
+
+---
+
+### Explainability Builds Trust
+
+Using SHAP transformed the model from a black box into an interpretable system, making predictions easier to understand and validate.
+
+---
+
+### Production Thinking Changes Everything
+
+Building an accurate model is only one part of a real-world machine learning project.
+
+Deployment, reproducibility, logging, validation, and maintainability are equally important.
+
+---
+
+# 🚀 Future Improvements
+
+Potential enhancements include:
+
+- Gradient Boosting (XGBoost / LightGBM / CatBoost)
+- Bayesian Hyperparameter Optimization
+- Real-Time Traffic Data Integration
+- Weather-Based Features
+- Geographic Distance Features
+- GPS Route Features
+- Time-Series Traffic Modeling
+- MLflow Experiment Tracking
+- Unit & Integration Testing
+- CI/CD Pipeline
+- Kubernetes Deployment
+- Cloud Deployment (AWS, Azure, GCP)
+- Model Monitoring
+- Drift Detection
+- Automated Retraining
+- Batch Prediction Service
+- Streaming Prediction API
+
+---
+
+# 💡 Engineering Takeaways
+
+This project demonstrates practical experience with:
+
+- Machine Learning Engineering
+- Regression Modeling
+- Statistical Analysis
+- Feature Engineering
+- Explainable AI (XAI)
+- Production Pipelines
+- REST API Development
+- Docker
+- Software Engineering Best Practices
+
+---
+
+# 🎤 Interview Talking Points
+
+This project can be discussed from multiple perspectives during technical interviews.
+
+### Business Perspective
+
+- Why trip duration prediction matters
+- Business impact of accurate ETA estimation
+- Fleet optimization
+- Customer satisfaction
+
+---
+
+### Machine Learning Perspective
+
+- Why Regression?
+- Why Random Forest?
+- Why SHAP?
+- Why multiple evaluation metrics?
+- Why hyperparameter tuning?
+
+---
+
+### Engineering Perspective
+
+- Why use a Pipeline?
+- Why serialize the model?
+- Why FastAPI?
+- Why Docker?
+- Why logging?
+- Why validation?
+- Why separate training from inference?
+
+---
+
+### Production Perspective
+
+- Handling invalid requests
+- Preventing data leakage
+- Ensuring reproducibility
+- Deployment consistency
+- API scalability
+
+---
+
+# 🎯 Skills Demonstrated
+
+This project showcases proficiency in:
+
+| Category | Skills |
+|----------|--------|
+| Programming | Python |
+| Data Analysis | Pandas, NumPy |
+| Visualization | Matplotlib |
+| Statistics | Probability, Hypothesis Testing, Confidence Intervals |
+| Machine Learning | Scikit-Learn |
+| Explainability | SHAP |
+| API Development | FastAPI |
+| Validation | Pydantic |
+| Deployment | Docker |
+| Serialization | Joblib |
+| Documentation | Markdown |
+| Version Control | Git & GitHub |
+
+---
+
+# 📈 Career Relevance
+
+This repository demonstrates practical skills expected from:
+
+- Machine Learning Engineer
+- Data Scientist
+- Applied AI Engineer
+- AI Engineer
+- MLOps Engineer (Foundational Level)
+
+---
+
+# 🤝 Contributing
+
+Contributions are welcome.
+
+If you have suggestions for improving the project, feel free to:
+
+1. Fork the repository.
+2. Create a feature branch.
+3. Commit your changes.
+4. Open a Pull Request.
+
+Constructive feedback and discussions are always appreciated.
+
+---
+
+# 👨‍💻 Author
+
+## Mahmoud Morsy
+
+Machine Learning Engineer | AI Engineer
+
+Passionate about building production-ready Machine Learning systems that combine statistical rigor, explainability, and scalable deployment.
+
+### Connect with me
+
+- GitHub: https://github.com/morsycoo
+- LinkedIn: https://linkedin.com/in/mahmudmursi
+- Kaggle: https://kaggle.com/mahmoudmorsy
+
+---
+
+# 🙏 Acknowledgments
+
+Special thanks to:
+
+- NYC Taxi & Limousine Commission (TLC) for providing the dataset.
+- The open-source community behind:
+  - Scikit-Learn
+  - FastAPI
+  - SHAP
+  - Pandas
+  - NumPy
+  - Docker
+
+---
+
+# 📄 License
+
+This project is licensed under the MIT License.
+
+Feel free to use this repository for educational and research purposes.
+
+---
+
+<div align="center">
+
+### ⭐ If you found this project useful, consider giving it a Star on GitHub!
+
+**Happy Learning! 🚀**
+
+</div>
