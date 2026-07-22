@@ -1,0 +1,48 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+
+# Jupyter
+notebook/
+.ipynb_checkpoints/
+
+# VS Code
+.vscode/
+
+# Logs
+logs/
+*.log
+
+# Data
+data/
+*.csv
+*.parquet
+
+# Reports
+reports/
+
+# Virtual Environments
+venv/
+.venv/
+env/
+
+# Cache
+.cache/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Models not needed during build
+final_random_forest_model.pkl
+
+# Keep ONLY this model
+!models/
+!models/production_pipeline.pkl
