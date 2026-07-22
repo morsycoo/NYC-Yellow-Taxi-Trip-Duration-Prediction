@@ -1,0 +1,6 @@
+{
+    "Model": "Random Forest Regressor",
+    "Version": "1.0",
+    "Dataset": "NYC Yellow Taxi",
+    "Features": 10
+}
