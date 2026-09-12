@@ -21,11 +21,6 @@
 ![SHAP](https://img.shields.io/badge/Explainability-SHAP-red?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-success?style=for-the-badge)
 
-<br>
-
-![GitHub stars](https://img.shields.io/github/stars/morsycoo/NYC-Yellow-Taxi-Trip-Duration-Prediction?style=social)
-![GitHub forks](https://img.shields.io/github/forks/morsycoo/NYC-Yellow-Taxi-Trip-Duration-Prediction?style=social)
-
 </div>
 
 ---
