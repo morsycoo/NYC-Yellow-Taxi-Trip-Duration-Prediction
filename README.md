@@ -1528,7 +1528,7 @@ Passionate about building production-ready Machine Learning systems that combine
 ### Connect with me
 
 - GitHub: https://github.com/morsycoo
-- LinkedIn: https://linkedin.com/in/mahmudmursi
+- LinkedIn: https://www.linkedin.com/in/morsycoo
 - Kaggle: https://kaggle.com/mahmoudmorsy
 
 ---
